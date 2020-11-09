@@ -124,6 +124,10 @@ class IsoLanguageCode extends AbstractCommand {
 
         $this->makeWorkingTable( self::TABLE, self::TABLE_WORKING );
         $this->disableKeys( self::TABLE_WORKING );
+        
+        // replace path with double \\ to avoid mysql escape string
+        $localFilePath = implode("\\\\", explode("\\", $localFilePath));
+
 
         // This file includes a header row. That is why I skip the first line with the IGNORE 1 LINES statement.
         $query = "LOAD DATA LOCAL INFILE '" . $localFilePath . "'
